@@ -6,10 +6,10 @@ import Headings from "./components/headings/Headings";
 import ListItem from "./components/list/ListItem";
 
 const dummy_data = [
-  { description: "task1" },
-  { description: "task2" },
-  { description: "task3" },
-  { description: "task4" },
+  { id: 0, description: "task1", isDone: false },
+  { id: 1, description: "task2", isDone: false },
+  { id: 2, description: "task3", isDone: false },
+  { id: 3, description: "task4", isDone: false },
 ];
 class App extends Component {
   constructor() {
@@ -17,14 +17,14 @@ class App extends Component {
 
     this.state = {
       todos: dummy_data,
-      index: 0,
+      currentId: 0,
     };
   }
 
   // gets index of the element from the component ListItem itself
   // and updates state
-  getTodoIndex = (index) => {
-    this.setState({ index: index });
+  getTodoId = (currentId) => {
+    this.setState({ currentId: currentId });
   };
 
   // gets input value from Form component
@@ -32,18 +32,33 @@ class App extends Component {
   // and adds new item to the todos array
   getInputValueFromForm = (data) => {
     this.setState((prevState) => ({
-      todos: [...prevState.todos, { description: data }],
+      todos: [
+        ...prevState.todos,
+        {
+          id: Math.round(Math.random() * 1000),
+          description: data,
+          isDone: false,
+        },
+      ],
     }));
   };
 
   // while clicked delete button in the ListItem component it should filter out
   // an exact element from todos array, thus modify and update state
   deleteHandler = () => {
-    this.setState({
-      todos: this.state.todos.filter((item) => {
-        return item !== this.state.todos[this.state.index];
-      }),
+    const currentItem = this.state.todos.find((item) => {
+      return item.id === this.state.currentId;
     });
+    this.setState(
+      {
+        todos: this.state.todos.filter((item) => {
+          return item !== currentItem;
+        }),
+      },
+      () => {
+        console.log(currentItem);
+      }
+    );
   };
 
   // while clicked deletes all tasks from todos array
@@ -59,13 +74,13 @@ class App extends Component {
         <Headings clearAllTasks={this.clearAllTasks} />
         {/* list */}
         <ul className="list">
-          {this.state.todos.map((item, index) => {
+          {this.state.todos.map((item) => {
             return (
               <ListItem
-                key={index}
-                index={index}
+                key={item.id}
+                currentId={item.id}
                 description={item.description}
-                getTodoIndex={this.getTodoIndex}
+                getTodoId={this.getTodoId}
                 deleteHandler={this.deleteHandler}
               />
             );

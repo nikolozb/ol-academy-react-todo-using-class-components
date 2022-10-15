@@ -8,7 +8,7 @@ class ListItem extends Component {
   }
 
   onDeleteClick = async () => {
-    await this.props.getTodoIndex(this.props.index);
+    await this.props.getTodoId(this.props.currentId);
     await this.props.deleteHandler();
   };
 
