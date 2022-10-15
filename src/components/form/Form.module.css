@@ -1,0 +1,44 @@
+.form {
+}
+
+.form-heading {
+  font-size: 24px;
+}
+
+.form-functional-block {
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
+  column-gap: 12px;
+}
+
+.form-input {
+  font-size: 24px;
+  padding: 8px 10px;
+  border: none;
+  background-color: rgb(152, 170, 185);
+  border-radius: 8px;
+  color: aliceblue;
+}
+
+.form-input::placeholder {
+  color: aliceblue;
+  text-transform: capitalize;
+}
+
+.form-input:focus {
+  outline: none;
+}
+
+.form-button-add {
+  background-color: aquamarine;
+}
+
+.btn {
+  border: none;
+  padding: 8px 16px;
+  font-size: 16px;
+  text-transform: capitalize;
+  cursor: pointer;
+  border-radius: 8px;
+}
