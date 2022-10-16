@@ -27,10 +27,10 @@ class App extends Component {
   moveTaskUp = () => {
     const currentItem = this.getCurrentItem();
     const indexOfCurrentElement = this.state.todos.indexOf(currentItem);
-    if (indexOfCurrentElement < 0) {
+    const indexOfMovedElement = indexOfCurrentElement - 1;
+    if (indexOfMovedElement === -1) {
       return;
     } else {
-      const indexOfMovedElement = indexOfCurrentElement - 1;
       const newArray = this.state.todos.filter((item) => {
         return this.state.todos.indexOf(item) !== indexOfCurrentElement;
       });
