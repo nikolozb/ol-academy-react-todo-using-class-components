@@ -43,6 +43,14 @@ class App extends Component {
     }));
   };
 
+  // while clicked done button it changes isDone flag in todos array from false to true
+  doneHandler = () => {
+    const currentItem = this.state.todos.find((item) => {
+      return item.id === this.state.currentId;
+    });
+    currentItem.isDone = true;
+  };
+
   // while clicked delete button in the ListItem component it should filter out
   // an exact element from todos array, thus modify and update state
   deleteHandler = () => {
@@ -101,6 +109,7 @@ class App extends Component {
                 description={item.description}
                 getTodoId={this.getTodoId}
                 deleteHandler={this.deleteHandler}
+                doneHandler={this.doneHandler}
               />
             );
           })}

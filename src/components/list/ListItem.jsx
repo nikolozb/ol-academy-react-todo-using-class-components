@@ -12,6 +12,11 @@ class ListItem extends Component {
     await this.props.deleteHandler();
   };
 
+  onDoneHandler = async () => {
+    await this.props.getTodoId(this.props.currentId);
+    await this.props.doneHandler();
+  };
+
   render() {
     return (
       <li className={styles["list-item"]}>
@@ -22,7 +27,10 @@ class ListItem extends Component {
           <button className={`${styles.btn} ${styles["list-button-edit"]}`}>
             edit
           </button>
-          <button className={`${styles.btn} ${styles["list-button-done"]}`}>
+          <button
+            className={`${styles.btn} ${styles["list-button-done"]}`}
+            onClick={this.onDoneHandler}
+          >
             done
           </button>
           <button
