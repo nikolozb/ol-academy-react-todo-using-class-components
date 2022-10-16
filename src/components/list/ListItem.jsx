@@ -22,6 +22,16 @@ class ListItem extends Component {
     await this.props.editHandler();
   };
 
+  onMoveUpHandler = async () => {
+    await this.props.getTodoId(this.props.currentId);
+    await this.props.moveTaskUp();
+  };
+
+  onMoveDownHandler = async () => {
+    await this.props.getTodoId(this.props.currentId);
+    await this.props.moveTaskDown();
+  };
+
   render() {
     return (
       <li className={styles["list-item"]}>
@@ -47,6 +57,16 @@ class ListItem extends Component {
           >
             delete
           </button>
+          <div className={styles["up-down-buttons"]}>
+            <span
+              onClick={this.onMoveUpHandler}
+              className={`${styles["arrow-btn"]} ${styles.up}`}
+            ></span>
+            <span
+              onClick={this.onMoveDownHandler}
+              className={`${styles["arrow-btn"]} ${styles.down}`}
+            ></span>
+          </div>
         </div>
       </li>
     );

@@ -22,6 +22,34 @@ class App extends Component {
     };
   }
 
+  // functions for controlling order of tasks
+  // move up
+  moveTaskUp = () => {
+    const currentItem = this.getCurrentItem();
+    const indexOfCurrentElement = this.state.todos.indexOf(currentItem);
+    if (indexOfCurrentElement < 0) {
+      return;
+    } else {
+      const indexOfMovedElement = indexOfCurrentElement - 1;
+      const newArray = this.state.todos.filter((item) => {
+        return this.state.todos.indexOf(item) !== indexOfCurrentElement;
+      });
+      newArray.splice(indexOfMovedElement, 0, currentItem);
+      this.setState({ todos: newArray });
+    }
+  };
+  // move down
+  moveTaskDown = () => {
+    const currentItem = this.getCurrentItem();
+    const indexOfCurrentElement = this.state.todos.indexOf(currentItem);
+    const indexOfMovedElement = indexOfCurrentElement + 1;
+    const newArray = this.state.todos.filter((item) => {
+      return this.state.todos.indexOf(item) !== indexOfCurrentElement;
+    });
+    newArray.splice(indexOfMovedElement, 0, currentItem);
+    this.setState({ todos: newArray });
+  };
+
   // gets index of the element from the component ListItem itself
   // and updates state
   getTodoId = (currentId) => {
@@ -140,6 +168,8 @@ class App extends Component {
                 deleteHandler={this.deleteHandler}
                 doneHandler={this.doneHandler}
                 editHandler={this.editHandler}
+                moveTaskUp={this.moveTaskUp}
+                moveTaskDown={this.moveTaskDown}
               />
             );
           })}
