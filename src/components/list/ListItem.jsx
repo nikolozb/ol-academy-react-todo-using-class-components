@@ -17,6 +17,11 @@ class ListItem extends Component {
     await this.props.doneHandler();
   };
 
+  onEditHandler = async () => {
+    await this.props.getTodoId(this.props.currentId);
+    await this.props.editHandler();
+  };
+
   render() {
     return (
       <li className={styles["list-item"]}>
@@ -24,7 +29,10 @@ class ListItem extends Component {
           {this.props.description}
         </span>
         <div className={styles["list-functional-block"]}>
-          <button className={`${styles.btn} ${styles["list-button-edit"]}`}>
+          <button
+            className={`${styles.btn} ${styles["list-button-edit"]}`}
+            onClick={this.onEditHandler}
+          >
             edit
           </button>
           <button

@@ -17,11 +17,15 @@ class Form extends Component {
 
   clearInputField = () => {
     if (this.state.value) {
-      this.props.getInputValueFromForm(this.state.value);
+      this.props.buttonName === "add todo"
+        ? this.props.getInputValueFromForm(this.state.value)
+        : this.props.updateHandler(this.state.value);
       this.setState({ value: "" });
     } else {
       return;
     }
+
+    // this.props.updateHandler();
   };
 
   render() {
@@ -39,7 +43,7 @@ class Form extends Component {
             className={`${styles.btn} ${styles["form-button-add"]}`}
             onClick={this.clearInputField}
           >
-            add todo
+            {this.props.buttonName}
           </button>
         </div>
       </div>

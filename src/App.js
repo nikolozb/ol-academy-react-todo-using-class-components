@@ -6,7 +6,7 @@ import Headings from "./components/headings/Headings";
 import ListItem from "./components/list/ListItem";
 
 const dummy_data = [
-  { id: 0, description: "task1", isDone: true },
+  { id: 0, description: "task1", isDone: false },
   { id: 1, description: "task2", isDone: false },
   { id: 2, description: "task3", isDone: false },
   { id: 3, description: "task4", isDone: false },
@@ -18,6 +18,7 @@ class App extends Component {
     this.state = {
       todos: dummy_data,
       currentId: 0,
+      showEdit: false,
     };
   }
 
@@ -43,20 +44,35 @@ class App extends Component {
     }));
   };
 
-  // while clicked done button it changes isDone flag in todos array from false to true
-  doneHandler = () => {
-    const currentItem = this.state.todos.find((item) => {
+  // gets exact element from list of items, could be used with any function that requires current el
+  getCurrentItem = () => {
+    return this.state.todos.find((item) => {
       return item.id === this.state.currentId;
     });
+  };
+
+  // while clicked update it changes containing text of current element
+  updateHandler = (data) => {
+    const currentItem = this.getCurrentItem();
+    currentItem.description = data;
+    this.setState({ showEdit: false });
+  };
+
+  // while clicked edit input pops out and we are able to update its containing text
+  editHandler = () => {
+    this.setState({ showEdit: true });
+  };
+
+  // while clicked done button it changes isDone flag in todos array from false to true
+  doneHandler = () => {
+    const currentItem = this.getCurrentItem();
     currentItem.isDone = true;
   };
 
   // while clicked delete button in the ListItem component it should filter out
   // an exact element from todos array, thus modify and update state
   deleteHandler = () => {
-    const currentItem = this.state.todos.find((item) => {
-      return item.id === this.state.currentId;
-    });
+    const currentItem = this.getCurrentItem();
     this.setState({
       todos: this.state.todos.filter((item) => {
         return item !== currentItem;
@@ -99,6 +115,19 @@ class App extends Component {
           clearIncompleteTasks={this.clearIncompleteTasks}
           clearCompletedTasks={this.clearCompletedTasks}
         />
+        {/* form */}
+        <Form
+          getInputValueFromForm={this.getInputValueFromForm}
+          buttonName="add todo"
+        />
+        {/* update form */}
+        {this.state.showEdit && (
+          <Form
+            getInputValueFromForm={this.getInputValueFromForm}
+            buttonName="update"
+            updateHandler={this.updateHandler}
+          />
+        )}
         {/* list */}
         <ul className="list">
           {this.state.todos.map((item) => {
@@ -110,15 +139,11 @@ class App extends Component {
                 getTodoId={this.getTodoId}
                 deleteHandler={this.deleteHandler}
                 doneHandler={this.doneHandler}
+                editHandler={this.editHandler}
               />
             );
           })}
         </ul>
-        {/* form */}
-        <Form
-          getInputValueFromForm={this.getInputValueFromForm}
-          deleteHandler={this.deleteHandler}
-        />
       </div>
     );
   }
