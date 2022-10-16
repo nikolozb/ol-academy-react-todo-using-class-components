@@ -72,6 +72,16 @@ class App extends Component {
     this.setState({ todos: filterIncompleteTasks });
   };
 
+  // while clicked deletes all tasks from todos array with a { isDone: true }
+  // it is bound to 'clear completed tasks' inside of the Headings component
+  clearCompletedTasks = () => {
+    const filterIncompleteTasks = this.state.todos.filter((item) => {
+      return !item.isDone;
+    });
+
+    this.setState({ todos: filterIncompleteTasks });
+  };
+
   render() {
     return (
       <div className="app">
@@ -79,6 +89,7 @@ class App extends Component {
         <Headings
           clearAllTasks={this.clearAllTasks}
           clearIncompleteTasks={this.clearIncompleteTasks}
+          clearCompletedTasks={this.clearCompletedTasks}
         />
         {/* list */}
         <ul className="list">

@@ -21,7 +21,10 @@ class Headings extends Component {
           >
             Clear all tasks
           </button>
-          <button className={`${styles.btn} ${styles["clear-tasks"]}`}>
+          <button
+            className={`${styles.btn} ${styles["clear-tasks"]}`}
+            onClick={this.props.clearCompletedTasks}
+          >
             Clear completed tasks
           </button>
           <button
