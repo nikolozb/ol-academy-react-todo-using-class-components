@@ -6,7 +6,7 @@ import Headings from "./components/headings/Headings";
 import ListItem from "./components/list/ListItem";
 
 const dummy_data = [
-  { id: 0, description: "task1", isDone: false },
+  { id: 0, description: "task1", isDone: true },
   { id: 1, description: "task2", isDone: false },
   { id: 2, description: "task3", isDone: false },
   { id: 3, description: "task4", isDone: false },
@@ -49,16 +49,11 @@ class App extends Component {
     const currentItem = this.state.todos.find((item) => {
       return item.id === this.state.currentId;
     });
-    this.setState(
-      {
-        todos: this.state.todos.filter((item) => {
-          return item !== currentItem;
-        }),
-      },
-      () => {
-        console.log(currentItem);
-      }
-    );
+    this.setState({
+      todos: this.state.todos.filter((item) => {
+        return item !== currentItem;
+      }),
+    });
   };
 
   // while clicked deletes all tasks from todos array
@@ -67,11 +62,24 @@ class App extends Component {
     this.setState({ todos: [] });
   };
 
+  // while clicked deletes all tasks from todos array with a { isDone: false }
+  // it is bound to 'clear incomplete tasks' inside of the Headings component
+  clearIncompleteTasks = () => {
+    const filterIncompleteTasks = this.state.todos.filter((item) => {
+      return item.isDone;
+    });
+
+    this.setState({ todos: filterIncompleteTasks });
+  };
+
   render() {
     return (
       <div className="app">
         {/* headings */}
-        <Headings clearAllTasks={this.clearAllTasks} />
+        <Headings
+          clearAllTasks={this.clearAllTasks}
+          clearIncompleteTasks={this.clearIncompleteTasks}
+        />
         {/* list */}
         <ul className="list">
           {this.state.todos.map((item) => {
