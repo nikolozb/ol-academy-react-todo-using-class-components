@@ -2,6 +2,7 @@ import "./App.css";
 import React, { Component } from "react";
 
 import Form from "./components/form/Form";
+import Error from "./components/error/Error";
 import Headings from "./components/headings/Headings";
 import ListItem from "./components/list/ListItem";
 
@@ -60,16 +61,33 @@ class App extends Component {
   // it is bound to 'add todo' button inside of the form component
   // and adds new item to the todos array
   getInputValueFromForm = (data) => {
-    this.setState((prevState) => ({
-      todos: [
-        ...prevState.todos,
-        {
-          id: Math.round(Math.random() * 1000),
-          description: data,
-          isDone: false,
-        },
-      ],
-    }));
+    const id = Math.round(Math.random() * 1000);
+
+    // checks whether any of the todos include same text as is data
+    const checked = this.state.todos.map((item) => {
+      if (item.description.toLocaleLowerCase() === data.toLocaleLowerCase()) {
+        console.log("error");
+        return true;
+      }
+      return false;
+    });
+
+    // whether checked array includes true app won't rerender
+    // otherwise it will be updated
+    if (checked.includes(true)) {
+      return;
+    } else {
+      this.setState((prevState) => ({
+        todos: [
+          ...prevState.todos,
+          {
+            id: id,
+            description: data,
+            isDone: false,
+          },
+        ],
+      }));
+    }
   };
 
   // gets exact element from list of items, could be used with any function that requires current el
