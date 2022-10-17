@@ -106,7 +106,7 @@ class App extends Component {
     });
   };
 
-  // while clicked update it changes containing text of current element
+  // when clicked update it changes containing text of current element
   updateHandler = (data) => {
     const currentItem = this.getCurrentItem();
     currentItem.description = data;
@@ -114,20 +114,20 @@ class App extends Component {
     this.updateErrorMsg();
   };
 
-  // while clicked edit input pops out and we are able to update its containing text
+  // when clicked edit input pops out and we are able to update its containing text
   editHandler = () => {
     this.setState({ showEdit: true });
     this.updateErrorMsg();
   };
 
-  // while clicked done button it changes isDone flag in todos array from false to true
+  // when clicked done button it changes isDone flag in todos array from false to true
   doneHandler = () => {
     const currentItem = this.getCurrentItem();
     currentItem.isDone = true;
     this.updateErrorMsg();
   };
 
-  // while clicked delete button in the ListItem component it should filter out
+  // when clicked delete button in the ListItem component it should filter out
   // an exact element from todos array, thus modify and update state
   deleteHandler = () => {
     const currentItem = this.getCurrentItem();
@@ -139,14 +139,14 @@ class App extends Component {
     this.updateErrorMsg();
   };
 
-  // while clicked deletes all tasks from todos array
+  // when clicked deletes all tasks from todos array
   // it is bound to 'clear all tasks' inside of the Headings component
   clearAllTasks = () => {
     this.setState({ todos: [] });
     this.updateErrorMsg();
   };
 
-  // while clicked deletes all tasks from todos array with a { isDone: false }
+  // when clicked deletes all tasks from todos array with a { isDone: false }
   // it is bound to 'clear incomplete tasks' inside of the Headings component
   clearIncompleteTasks = () => {
     const filterIncompleteTasks = this.state.todos.filter((item) => {
@@ -157,7 +157,7 @@ class App extends Component {
     this.updateErrorMsg();
   };
 
-  // while clicked deletes all tasks from todos array with a { isDone: true }
+  // when clicked deletes all tasks from todos array with a { isDone: true }
   // it is bound to 'clear completed tasks' inside of the Headings component
   clearCompletedTasks = () => {
     const filterIncompleteTasks = this.state.todos.filter((item) => {
