@@ -181,6 +181,7 @@ class App extends Component {
         <Form
           getInputValueFromForm={this.getInputValueFromForm}
           buttonName="add todo"
+          heading="Add new todo"
         />
         {/* error message */}
         {this.state.errorMsg && <Error />}
@@ -189,6 +190,7 @@ class App extends Component {
           <Form
             getInputValueFromForm={this.getInputValueFromForm}
             buttonName="update"
+            heading="Update existing todo"
             updateHandler={this.updateHandler}
           />
         )}

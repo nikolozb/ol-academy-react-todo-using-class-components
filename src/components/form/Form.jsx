@@ -31,7 +31,7 @@ class Form extends Component {
   render() {
     return (
       <div className={styles.form}>
-        <span className={styles["form-heading"]}>Add new Todo</span>
+        <span className={styles["form-heading"]}>{this.props.heading}</span>
         <div className={styles["form-functional-block"]}>
           <input
             type="text"
