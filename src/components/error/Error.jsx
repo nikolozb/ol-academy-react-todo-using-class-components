@@ -8,7 +8,7 @@ class Error extends Component {
   }
 
   render() {
-    return <div className={styles.error}>error</div>;
+    return <div className={styles.error}>Error: task already exists</div>;
   }
 }
 

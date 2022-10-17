@@ -20,8 +20,14 @@ class App extends Component {
       todos: dummy_data,
       currentId: 0,
       showEdit: false,
+      errorMsg: false,
     };
   }
+
+  // updates: { errorMsg: false }
+  updateErrorMsg = () => {
+    this.setState({ errorMsg: false });
+  };
 
   // functions for controlling order of tasks
   // move up
@@ -30,6 +36,7 @@ class App extends Component {
     const indexOfCurrentElement = this.state.todos.indexOf(currentItem);
     const indexOfMovedElement = indexOfCurrentElement - 1;
     if (indexOfMovedElement === -1) {
+      this.updateErrorMsg();
       return;
     } else {
       const newArray = this.state.todos.filter((item) => {
@@ -49,6 +56,7 @@ class App extends Component {
     });
     newArray.splice(indexOfMovedElement, 0, currentItem);
     this.setState({ todos: newArray });
+    this.updateErrorMsg();
   };
 
   // gets index of the element from the component ListItem itself
@@ -66,7 +74,6 @@ class App extends Component {
     // checks whether any of the todos include same text as is data
     const checked = this.state.todos.map((item) => {
       if (item.description.toLocaleLowerCase() === data.toLocaleLowerCase()) {
-        console.log("error");
         return true;
       }
       return false;
@@ -75,6 +82,7 @@ class App extends Component {
     // whether checked array includes true app won't rerender
     // otherwise it will be updated
     if (checked.includes(true)) {
+      this.setState({ errorMsg: true });
       return;
     } else {
       this.setState((prevState) => ({
@@ -86,6 +94,7 @@ class App extends Component {
             isDone: false,
           },
         ],
+        errorMsg: false,
       }));
     }
   };
@@ -102,17 +111,20 @@ class App extends Component {
     const currentItem = this.getCurrentItem();
     currentItem.description = data;
     this.setState({ showEdit: false });
+    this.updateErrorMsg();
   };
 
   // while clicked edit input pops out and we are able to update its containing text
   editHandler = () => {
     this.setState({ showEdit: true });
+    this.updateErrorMsg();
   };
 
   // while clicked done button it changes isDone flag in todos array from false to true
   doneHandler = () => {
     const currentItem = this.getCurrentItem();
     currentItem.isDone = true;
+    this.updateErrorMsg();
   };
 
   // while clicked delete button in the ListItem component it should filter out
@@ -124,12 +136,14 @@ class App extends Component {
         return item !== currentItem;
       }),
     });
+    this.updateErrorMsg();
   };
 
   // while clicked deletes all tasks from todos array
   // it is bound to 'clear all tasks' inside of the Headings component
   clearAllTasks = () => {
     this.setState({ todos: [] });
+    this.updateErrorMsg();
   };
 
   // while clicked deletes all tasks from todos array with a { isDone: false }
@@ -140,6 +154,7 @@ class App extends Component {
     });
 
     this.setState({ todos: filterIncompleteTasks });
+    this.updateErrorMsg();
   };
 
   // while clicked deletes all tasks from todos array with a { isDone: true }
@@ -150,6 +165,7 @@ class App extends Component {
     });
 
     this.setState({ todos: filterIncompleteTasks });
+    this.updateErrorMsg();
   };
 
   render() {
@@ -166,6 +182,8 @@ class App extends Component {
           getInputValueFromForm={this.getInputValueFromForm}
           buttonName="add todo"
         />
+        {/* error message */}
+        {this.state.errorMsg && <Error />}
         {/* update form */}
         {this.state.showEdit && (
           <Form
