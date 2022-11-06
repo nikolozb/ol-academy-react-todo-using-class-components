@@ -110,46 +110,61 @@ class Todo extends Component {
   };
 
   render() {
+    const {
+      addNewTodo,
+      deleteAllTodosHandler,
+      deleteCompletedTodosHandler,
+      deleteIncompleteTodosHandler,
+      updateHandler,
+      deleteHandler,
+      editHandler,
+      doneHandler,
+      checkedHandler,
+      setTodos,
+    } = this;
+
+    const { showError, showUpdateForm, todos, currentItem } = this.state;
+
     return (
       <div className="todo">
         {/* show error */}
 
         <div className="todo__container">
           {/* form */}
-          <TodoForm addNewTodo={this.addNewTodo} />
-          {this.state.showError ? <ErrorMessage /> : null}
+          <TodoForm addNewTodo={addNewTodo} />
+          {showError ? <ErrorMessage /> : null}
           {/* controlling all todos */}
           <ControlAllTodos
-            deleteAllTodosHandler={this.deleteAllTodosHandler}
-            deleteCompletedTodosHandler={this.deleteCompletedTodosHandler}
-            deleteIncompleteTodosHandler={this.deleteIncompleteTodosHandler}
+            deleteAllTodosHandler={deleteAllTodosHandler}
+            deleteCompletedTodosHandler={deleteCompletedTodosHandler}
+            deleteIncompleteTodosHandler={deleteIncompleteTodosHandler}
           />
         </div>
         {/* update todo */}
-        {this.state.showUpdateForm ? (
+        {showUpdateForm ? (
           <UpdateTodoForm
-            updateHandler={this.updateHandler}
-            currentItem={this.state.currentItem}
+            updateHandler={updateHandler}
+            currentItem={currentItem}
           />
         ) : null}
 
         {/* list */}
         <ul className="todo__list">
           {" "}
-          {this.state.todos.length > 0 ? (
-            this.state.todos.map(({ id, title, isDone }) => {
+          {todos.length > 0 ? (
+            todos.map(({ id, title, isDone }) => {
               return (
                 <TodoItem
                   checked={isDone}
                   key={id}
                   id={id}
                   title={title}
-                  deleteHandler={this.deleteHandler}
-                  editHandler={this.editHandler}
-                  doneHandler={this.doneHandler}
-                  checkedHandler={this.checkedHandler}
-                  todos={this.state.todos}
-                  setTodos={this.setTodos}
+                  deleteHandler={deleteHandler}
+                  editHandler={editHandler}
+                  doneHandler={doneHandler}
+                  checkedHandler={checkedHandler}
+                  todos={todos}
+                  setTodos={setTodos}
                 />
               );
             })

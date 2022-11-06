@@ -22,18 +22,21 @@ class TodoForm extends Component {
   };
 
   render() {
+    const { inputChangeHandler, addTodoClickHandler } = this;
+    const { input } = this.state;
+
     return (
       <div className="todo-form">
         <input
           type="text"
-          value={this.state.input}
-          onChange={this.inputChangeHandler}
+          value={input}
+          onChange={inputChangeHandler}
           className="todo-form__input"
           placeholder="New todo..."
         />
         <button
           type="submit"
-          onClick={this.addTodoClickHandler}
+          onClick={addTodoClickHandler}
           className="btn todo-form__button"
         >
           add todo

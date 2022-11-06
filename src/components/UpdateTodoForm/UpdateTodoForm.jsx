@@ -22,17 +22,19 @@ class UpdateTodoForm extends Component {
   };
 
   render() {
+    const { inputChangeHandler, onUpdateClickHandler } = this;
+    const { input } = this.state;
     return (
       <div className="update-todo">
         <input
           type="text"
-          value={this.state.input}
-          onChange={this.inputChangeHandler}
+          value={input}
+          onChange={inputChangeHandler}
           className="update-todo__input"
         />
         <button
           type="submit"
-          onClick={this.onUpdateClickHandler}
+          onClick={onUpdateClickHandler}
           className="btn update-todo__button"
         >
           update

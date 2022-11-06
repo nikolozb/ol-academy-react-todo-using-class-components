@@ -14,40 +14,46 @@ class TodoItem extends Component {
   }
 
   render() {
+    const {
+      checkedHandler,
+      doneHandler,
+      editHandler,
+      deleteHandler,
+      id,
+      todos,
+      setTodos,
+    } = this.props;
+
     return (
       <li className="todo-item">
         <span className="todo-item__title">
           <input
             type="checkbox"
             value={this.state.check}
-            onClick={() => this.props.checkedHandler(this.props.id)}
+            onClick={() => checkedHandler(id)}
           />
           {this.props.title}
         </span>
         <div className="todo-item__buttons">
           <button
             className="btn todo-item__done"
-            onClick={() => this.props.doneHandler(this.props.id)}
+            onClick={() => doneHandler(id)}
           >
             done
           </button>
           <button
             className="btn todo-item__edit"
-            onClick={() => this.props.editHandler(this.props.id)}
+            onClick={() => editHandler(id)}
           >
             edit
           </button>
           <button
             className="btn todo-item__delete"
-            onClick={() => this.props.deleteHandler(this.props.id)}
+            onClick={() => deleteHandler(id)}
           >
             delete
           </button>
-          <MoveTasks
-            id={this.props.id}
-            todos={this.props.todos}
-            setTodos={this.props.setTodos}
-          />
+          <MoveTasks id={id} todos={todos} setTodos={setTodos} />
         </div>
       </li>
     );
