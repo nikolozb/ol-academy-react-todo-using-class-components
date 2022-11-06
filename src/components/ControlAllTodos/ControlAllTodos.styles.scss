@@ -1,0 +1,18 @@
+.control {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+  &__btn {
+    border: none;
+    padding: 4px 10px;
+    text-transform: capitalize;
+    border-radius: 8px;
+    background-color: brown;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+    &:hover {
+      opacity: 0.75;
+    }
+  }
+}

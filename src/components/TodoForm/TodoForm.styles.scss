@@ -1,0 +1,27 @@
+.todo-form {
+  display: flex;
+  column-gap: 12px;
+  &__input {
+    font-size: 24px;
+    padding: 6px 8px;
+    border: 1px solid rgb(172, 179, 185);
+    border-radius: 8px;
+    background-color: aliceblue;
+    transition: all 0.4s;
+    &:focus {
+      outline: none;
+      background-color: rgba(180, 211, 238, 0.9);
+    }
+    &::placeholder {
+      opacity: 0.2;
+    }
+  }
+
+  &__button {
+    background-color: rgb(76, 164, 164);
+    transition: all 0.2s;
+    &:hover {
+      background-color: rgba(76, 164, 164, 0.8);
+    }
+  }
+}

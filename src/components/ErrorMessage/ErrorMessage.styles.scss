@@ -1,0 +1,13 @@
+.error-message {
+  position: absolute;
+  top: -30px;
+  left: 37%;
+
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 2px 4px;
+  &__title {
+    color: red;
+    font-size: 12px;
+  }
+}
